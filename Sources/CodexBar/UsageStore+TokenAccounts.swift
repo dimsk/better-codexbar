@@ -549,7 +549,9 @@ extension UsageStore {
             self.reconcileSelectedTokenAccountSnapshotBeforeRefresh(provider: provider, accounts: accounts)
             return
         }
-        let limitedAccounts = self.limitedTokenAccounts(accounts, selected: selectedAccount)
+        let limitedAccounts = self.settings.multiAccountMenuBarEnabled
+            ? accounts
+            : self.limitedTokenAccounts(accounts, selected: selectedAccount)
         let effectiveSelected = selectedAccount
 
         // Capture the prior per-account snapshot state so we can preserve last-good

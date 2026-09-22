@@ -171,17 +171,61 @@ struct FileCodexAccountUsageSnapshotStore: CodexAccountUsageSnapshotStoring, @un
         }
 
         let accountsByID = Dictionary(uniqueKeysWithValues: accounts.map { ($0.id, $0) })
-        return payload.records.compactMap { record in
+        let hydrated = payload.records.compactMap { record -> HydratedRecord? in
             guard let account = Self.account(matching: record, accounts: accounts, accountsByID: accountsByID)
             else { return nil }
-            return CodexAccountUsageSnapshot(
-                account: account,
-                snapshot: Self.relabelSnapshot(record.snapshot, for: account),
-                error: record.error,
-                sourceLabel: record.sourceLabel,
-                credits: record.credits,
-                weeklyResetCandidate: Self.relabelCandidate(record.weeklyResetCandidate, for: account))
+            return HydratedRecord(
+                recordID: record.id,
+                snapshot: CodexAccountUsageSnapshot(
+                    account: account,
+                    snapshot: Self.relabelSnapshot(record.snapshot, for: account),
+                    error: record.error,
+                    sourceLabel: record.sourceLabel,
+                    credits: record.credits,
+                    weeklyResetCandidate: Self.relabelCandidate(record.weeklyResetCandidate, for: account)))
         }
+        return Self.deduplicatedAccounts(hydrated)
+    }
+
+    /// One saved row per current account. An exact id match wins; otherwise the newest reading wins.
+    private static func deduplicatedAccounts(_ records: [HydratedRecord]) -> [CodexAccountUsageSnapshot] {
+        var winners: [String: HydratedRecord] = [:]
+        var order: [String] = []
+        for record in records {
+            let id = record.snapshot.id
+            if let existing = winners[id] {
+                if Self.prefers(record, over: existing) {
+                    winners[id] = record
+                }
+            } else {
+                winners[id] = record
+                order.append(id)
+            }
+        }
+        return order.compactMap { winners[$0]?.snapshot }
+    }
+
+    private static func prefers(_ candidate: HydratedRecord, over current: HydratedRecord) -> Bool {
+        let candidateIsExact = candidate.recordID == candidate.snapshot.id
+        let currentIsExact = current.recordID == current.snapshot.id
+        if candidateIsExact != currentIsExact {
+            return candidateIsExact
+        }
+        switch (candidate.snapshot.snapshot?.updatedAt, current.snapshot.snapshot?.updatedAt) {
+        case let (candidateUpdated?, currentUpdated?) where candidateUpdated != currentUpdated:
+            return candidateUpdated > currentUpdated
+        case (.some, .none):
+            return true
+        case (.none, .some):
+            return false
+        default:
+            return false
+        }
+    }
+
+    private struct HydratedRecord {
+        let recordID: String
+        let snapshot: CodexAccountUsageSnapshot
     }
 
     private static func account(

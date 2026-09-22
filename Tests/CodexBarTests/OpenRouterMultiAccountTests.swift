@@ -104,6 +104,44 @@ struct OpenRouterMultiAccountTests {
     }
 
     @Test
+    func `menu bar account display refreshes every token account past the menu card cap`() async throws {
+        let settings = Self.makeSettings(suite: "OpenRouterMultiAccountTests-menu-bar-uncapped")
+        for index in 0..<7 {
+            settings.addTokenAccount(provider: .openrouter, label: "Account \(index)", token: "key-\(index)")
+        }
+        settings.setActiveTokenAccountIndex(0, for: .openrouter)
+        settings.multiAccountMenuBarEnabled = true
+        let accounts = settings.tokenAccounts(for: .openrouter)
+        let recorder = OpenRouterAccountFetchRecorder()
+        let store = try Self.makeStore(settings: settings, recorder: recorder)
+
+        await store.refreshTokenAccounts(provider: .openrouter, accounts: accounts)
+
+        let requests = await recorder.requests
+        #expect(accounts.count == 7)
+        #expect(Set(requests.compactMap(\.accountID)) == Set(accounts.map(\.id)))
+    }
+
+    @Test
+    func `token account refresh keeps the six account cap outside the menu bar display`() async throws {
+        let settings = Self.makeSettings(suite: "OpenRouterMultiAccountTests-menu-card-cap")
+        for index in 0..<7 {
+            settings.addTokenAccount(provider: .openrouter, label: "Account \(index)", token: "key-\(index)")
+        }
+        settings.setActiveTokenAccountIndex(0, for: .openrouter)
+        settings.multiAccountMenuLayout = .stacked
+        let accounts = settings.tokenAccounts(for: .openrouter)
+        let recorder = OpenRouterAccountFetchRecorder()
+        let store = try Self.makeStore(settings: settings, recorder: recorder)
+
+        await store.refreshTokenAccounts(provider: .openrouter, accounts: accounts)
+
+        let requests = await recorder.requests
+        #expect(requests.count == UsageStore.tokenAccountMenuSnapshotLimit)
+        #expect(!requests.compactMap(\.accountID).contains(accounts[6].id))
+    }
+
+    @Test
     func `two OpenRouter accounts fetch with isolated keys and caches`() async throws {
         let settings = Self.makeSettings(suite: "OpenRouterMultiAccountTests-fetch")
         settings[providerConfig: .openrouter, field: .apiKey] = "decoy-token"

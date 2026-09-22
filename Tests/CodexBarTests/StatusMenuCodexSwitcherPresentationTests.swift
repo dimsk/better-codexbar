@@ -44,7 +44,7 @@ struct StatusMenuCodexSwitcherPresentationTests {
         menu.items.compactMap { $0.representedObject as? String }
     }
 
-    private func snapshot(email: String, percent: Double = 12) -> UsageSnapshot {
+    private func snapshot(email: String, percent: Double = 12, updatedAt: Date = Date()) -> UsageSnapshot {
         UsageSnapshot(
             primary: RateWindow(
                 usedPercent: percent,
@@ -56,7 +56,7 @@ struct StatusMenuCodexSwitcherPresentationTests {
                 windowMinutes: 10080,
                 resetsAt: Date().addingTimeInterval(86400),
                 resetDescription: nil),
-            updatedAt: Date(),
+            updatedAt: updatedAt,
             identity: ProviderIdentitySnapshot(
                 providerID: .codex,
                 accountEmail: email,
@@ -253,6 +253,137 @@ struct StatusMenuCodexSwitcherPresentationTests {
 
         #expect(CodexAccountHealth.status(for: visibleAccount, error: "401 Unauthorized")
             .label == "Needs re-auth")
+    }
+
+    @Test
+    func `codex account snapshot store keeps one row when removed profiles share a workspace`() throws {
+        let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: fileURL) }
+
+        let surviving = CodexVisibleAccount(
+            id: "shared@example.com",
+            email: "shared@example.com",
+            workspaceAccountID: "acct-shared",
+            storedAccountID: nil,
+            selectionSource: .liveSystem,
+            isActive: true,
+            isLive: true,
+            canReauthenticate: true,
+            canRemove: false)
+        let removedProfileID = try #require(UUID(uuidString: "AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE"))
+        let removedProfile = CodexVisibleAccount(
+            id: removedProfileID.uuidString,
+            email: surviving.email,
+            workspaceAccountID: surviving.workspaceAccountID,
+            storedAccountID: removedProfileID,
+            selectionSource: .managedAccount(id: removedProfileID),
+            isActive: false,
+            isLive: false,
+            canReauthenticate: true,
+            canRemove: true)
+        let other = CodexVisibleAccount(
+            id: "other@example.com",
+            email: "other@example.com",
+            workspaceAccountID: "acct-other",
+            storedAccountID: nil,
+            selectionSource: .liveSystem,
+            isActive: false,
+            isLive: true,
+            canReauthenticate: true,
+            canRemove: false)
+        let store = FileCodexAccountUsageSnapshotStore(fileURL: fileURL)
+        store.store([
+            CodexAccountUsageSnapshot(
+                account: surviving,
+                snapshot: self.snapshot(
+                    email: surviving.email,
+                    percent: 11,
+                    updatedAt: Date(timeIntervalSince1970: 100)),
+                error: nil,
+                sourceLabel: "live"),
+            CodexAccountUsageSnapshot(
+                account: removedProfile,
+                snapshot: self.snapshot(
+                    email: removedProfile.email,
+                    percent: 99,
+                    updatedAt: Date(timeIntervalSince1970: 500)),
+                error: nil,
+                sourceLabel: "profile"),
+        ])
+
+        let hydrated = store.load(for: [surviving, other])
+        let ordered = CodexAccountPresentationOrdering.orderedAccounts(
+            [surviving, other],
+            snapshots: hydrated,
+            activeVisibleAccountID: surviving.id)
+
+        #expect(hydrated.map(\.id) == [surviving.id])
+        #expect(hydrated.first?.snapshot?.primary?.usedPercent == 11)
+        #expect(ordered.map(\.id) == [surviving.id, other.id] || ordered.map(\.id) == [other.id, surviving.id])
+        #expect(Set(ordered.map(\.id)) == [surviving.id, other.id])
+    }
+
+    @Test
+    func `codex account snapshot store keeps the newest remapped reading`() throws {
+        let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        defer { try? FileManager.default.removeItem(at: fileURL) }
+
+        let surviving = CodexVisibleAccount(
+            id: "shared@example.com",
+            email: "shared@example.com",
+            workspaceAccountID: "acct-shared",
+            storedAccountID: nil,
+            selectionSource: .liveSystem,
+            isActive: true,
+            isLive: true,
+            canReauthenticate: true,
+            canRemove: false)
+        let olderID = try #require(UUID(uuidString: "11111111-1111-1111-1111-111111111111"))
+        let newerID = try #require(UUID(uuidString: "22222222-2222-2222-2222-222222222222"))
+        let older = CodexVisibleAccount(
+            id: olderID.uuidString,
+            email: surviving.email,
+            workspaceAccountID: surviving.workspaceAccountID,
+            storedAccountID: olderID,
+            selectionSource: .managedAccount(id: olderID),
+            isActive: false,
+            isLive: false,
+            canReauthenticate: true,
+            canRemove: true)
+        let newer = CodexVisibleAccount(
+            id: newerID.uuidString,
+            email: surviving.email,
+            workspaceAccountID: surviving.workspaceAccountID,
+            storedAccountID: newerID,
+            selectionSource: .managedAccount(id: newerID),
+            isActive: false,
+            isLive: false,
+            canReauthenticate: true,
+            canRemove: true)
+        let store = FileCodexAccountUsageSnapshotStore(fileURL: fileURL)
+        store.store([
+            CodexAccountUsageSnapshot(
+                account: older,
+                snapshot: self.snapshot(
+                    email: older.email,
+                    percent: 20,
+                    updatedAt: Date(timeIntervalSince1970: 100)),
+                error: nil,
+                sourceLabel: "older"),
+            CodexAccountUsageSnapshot(
+                account: newer,
+                snapshot: self.snapshot(
+                    email: newer.email,
+                    percent: 40,
+                    updatedAt: Date(timeIntervalSince1970: 500)),
+                error: nil,
+                sourceLabel: "newer"),
+        ])
+
+        let hydrated = store.load(for: [surviving])
+
+        #expect(hydrated.map(\.id) == [surviving.id])
+        #expect(hydrated.first?.snapshot?.primary?.usedPercent == 40)
     }
 
     @Test
