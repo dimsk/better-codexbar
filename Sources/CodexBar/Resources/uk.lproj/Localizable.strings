@@ -589,6 +589,8 @@
 "unsafe_managed_home" = "CodexBar відмовився змінити неочікуваний керований домашній шлях: %@";
 "menu_bar_metric_title" = "Метрика панелі меню";
 "menu_bar_metric_subtitle" = "Виберіть, яке вікно керує відсотками панелі меню.";
+"multi_account_menu_bar_title" = "Показати всі облікові записи";
+"multi_account_menu_bar_subtitle" = "Показує на панелі меню відсоток для кожного облікового запису.";
 "menu_bar_metric_subtitle_deepseek" = "Показує баланс DeepSeek на панелі меню.";
 "menu_bar_metric_subtitle_moonshot" = "Показує баланс API Moonshot / Kimi на панелі меню.";
 "menu_bar_metric_subtitle_mistral" = "Показує поточні витрати Mistral API на панелі меню.";

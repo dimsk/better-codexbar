@@ -576,6 +576,8 @@
 "unsafe_managed_home" = "CodexBar refused to modify an unexpected managed home path: %@";
 "menu_bar_metric_title" = "Menu bar metric";
 "menu_bar_metric_subtitle" = "Choose which window drives the menu bar percent.";
+"multi_account_menu_bar_title" = "Show all accounts";
+"multi_account_menu_bar_subtitle" = "Shows one percentage per account in the menu bar.";
 "menu_bar_metric_subtitle_deepseek" = "Shows the DeepSeek balance in the menu bar.";
 "menu_bar_metric_subtitle_moonshot" = "Shows the Moonshot / Kimi API balance in the menu bar.";
 "menu_bar_metric_subtitle_mistral" = "Choose Mistral API spend or Monthly Plan usage for the menu bar.";

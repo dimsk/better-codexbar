@@ -595,6 +595,8 @@
 "unsafe_managed_home" = "CodexBar ปฏิเสธที่จะแก้ไขเส้นทางโฮมที่มีการจัดการที่ไม่คาดคิด: %@";
 "menu_bar_metric_title" = "เมตริกแถบเมนู";
 "menu_bar_metric_subtitle" = "เลือกหน้าต่างที่จะขับเคลื่อนเปอร์เซ็นต์ของแถบเมนู";
+"multi_account_menu_bar_title" = "แสดงบัญชีทั้งหมด";
+"multi_account_menu_bar_subtitle" = "แสดงเปอร์เซ็นต์ของแต่ละบัญชีบนแถบเมนู";
 "menu_bar_metric_subtitle_deepseek" = "แสดงยอดคงเหลือ DeepSeek ในแถบเมนู";
 "menu_bar_metric_subtitle_moonshot" = "แสดงยอดคงเหลือ Moonshot / Kimi API ในแถบเมนู";
 "menu_bar_metric_subtitle_mistral" = "แสดงการใช้จ่าย Mistral API เดือนปัจจุบันในแถบเมนู";

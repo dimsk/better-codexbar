@@ -50,6 +50,9 @@ extension StatusItemController {
         let creditsRemaining = self.menuBarCreditsRemainingForIcon(provider: provider, snapshot: snapshot)
         let scopedWeekly = MenuBarLayoutSemanticWindowResolver.scopedWeeklyNamedWindow(snapshot: snapshot)
         let displayText = showBrandPercent ? self.menuBarDisplayText(for: provider, snapshot: snapshot) : nil
+        let accountSignature = self.store.multiAccountMenuBarItems(for: provider)?
+            .map { "\($0.indicator):\($0.percentage)" }
+            .joined(separator: "|")
         let layoutCostSignature = showBrandPercent
             ? self.storedMenuBarLayoutCostSignature(for: provider)
             : nil
@@ -85,6 +88,7 @@ extension StatusItemController {
             "anim=\(self.shouldAnimate(provider: provider) ? "1" : "0")",
             "refreshing=\(self.store.refreshingProviders.contains(provider.instanceID) ? "1" : "0")",
             "text=\(displayText ?? "nil")",
+            "accounts=\(accountSignature ?? "nil")",
             "layoutCost=\(layoutCostSignature ?? "nil")",
             "layoutAccount=\(layoutAccountSignature ?? "nil")",
             "layoutPace=\(layoutPaceSignature ?? "nil")",

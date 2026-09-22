@@ -587,6 +587,8 @@
 "unsafe_managed_home" = "CodexBar weigerte sich, einen unerwarteten verwalteten Home-Pfad zu ändern: %@";
 "menu_bar_metric_title" = "Menüleistenmetrik";
 "menu_bar_metric_subtitle" = "Wählen Sie aus, welches Fenster den Prozentwert der Menüleiste steuert.";
+"multi_account_menu_bar_title" = "Alle Konten anzeigen";
+"multi_account_menu_bar_subtitle" = "Zeigt in der Menüleiste für jedes Konto einen Prozentwert.";
 "menu_bar_metric_subtitle_deepseek" = "Zeigt das DeepSeek-Guthaben in der Menüleiste an.";
 "menu_bar_metric_subtitle_moonshot" = "Zeigt das Moonshot-/Kimi-API-Guthaben in der Menüleiste an.";
 "menu_bar_metric_subtitle_mistral" = "Zeigt die Mistral-API-Ausgaben des aktuellen Monats in der Menüleiste an.";

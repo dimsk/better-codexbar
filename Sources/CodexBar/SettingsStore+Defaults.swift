@@ -366,6 +366,30 @@ extension SettingsStore {
         }
     }
 
+    var multiAccountMenuBarEnabled: Bool {
+        get { self.defaultsState.multiAccountMenuBarEnabled }
+        set {
+            guard self.defaultsState.multiAccountMenuBarEnabled != newValue else { return }
+            self.defaultsState.multiAccountMenuBarEnabled = newValue
+            self.userDefaults.set(newValue, forKey: "multiAccountMenuBarEnabled")
+            self.userDefaults.removeObject(forKey: "codexMultiAccountMenuBarEnabled")
+            self.noteBackgroundWorkSettingsChanged()
+        }
+    }
+
+    var multiAccountMenuBarWindow: MultiAccountMenuBarWindow {
+        get {
+            MultiAccountMenuBarWindow.resolved(storedRaw: self.defaultsState.multiAccountMenuBarWindowRaw)
+        }
+        set {
+            guard self.multiAccountMenuBarWindow != newValue else { return }
+            self.defaultsState.multiAccountMenuBarWindowRaw = newValue.rawValue
+            self.userDefaults.set(newValue.rawValue, forKey: "multiAccountMenuBarWindow")
+            self.userDefaults.removeObject(forKey: "codexMultiAccountMenuBarWindow")
+            self.noteBackgroundWorkSettingsChanged()
+        }
+    }
+
     private var kiroMenuBarDisplayModeRaw: String? {
         get { self.defaultsState.kiroMenuBarDisplayModeRaw }
         set {

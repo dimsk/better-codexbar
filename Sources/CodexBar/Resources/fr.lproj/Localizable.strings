@@ -589,6 +589,8 @@
 "unsafe_managed_home" = "CodexBar a refusé de modifier un chemin d'accès à la maison géré inattendu : %@";
 "menu_bar_metric_title" = "Métrique de la barre de menus";
 "menu_bar_metric_subtitle" = "Choisissez quelle fenêtre gère le pourcentage de la barre de menus.";
+"multi_account_menu_bar_title" = "Afficher tous les comptes";
+"multi_account_menu_bar_subtitle" = "Affiche un pourcentage par compte dans la barre des menus.";
 "menu_bar_metric_subtitle_deepseek" = "Affiche le solde DeepSeek dans la barre de menu.";
 "menu_bar_metric_subtitle_moonshot" = "Affiche le solde de l'API Moonshot / Kimi dans la barre de menu.";
 "menu_bar_metric_subtitle_mistral" = "Affiche les dépenses de l'API Mistral du mois en cours dans la barre de menu.";

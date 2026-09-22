@@ -590,6 +590,8 @@
 "unsafe_managed_home" = "CodexBar 拒絕修改意外的託管主目錄路徑：%@";
 "menu_bar_metric_title" = "選單列指標";
 "menu_bar_metric_subtitle" = "選擇選單列百分比要依據哪個時段。";
+"multi_account_menu_bar_title" = "顯示所有帳號";
+"multi_account_menu_bar_subtitle" = "在選單列顯示每個帳號的百分比。";
 "menu_bar_metric_subtitle_deepseek" = "在選單列顯示 DeepSeek 餘額。";
 "menu_bar_metric_subtitle_moonshot" = "在選單列顯示 Moonshot / Kimi API 餘額。";
 "menu_bar_metric_subtitle_mistral" = "在選單列顯示 Mistral API 本月支出。";

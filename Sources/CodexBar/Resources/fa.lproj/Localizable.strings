@@ -595,6 +595,8 @@
 "unsafe_managed_home" = "CodexBar از تغییر مسیر خانه مدیریت شده غیرمنتظره خودداری کرد: %@";
 "menu_bar_metric_title" = "معیار نوار منو";
 "menu_bar_metric_subtitle" = "انتخاب کنید کدام پنجره درصد نوار منو را تنظیم کند.";
+"multi_account_menu_bar_title" = "نمایش همه حساب‌ها";
+"multi_account_menu_bar_subtitle" = "در نوار منو برای هر حساب یک درصد نشان می‌دهد.";
 "menu_bar_metric_subtitle_deepseek" = "تعادل DeepSeek را در نوار منو نشان می دهد.";
 "menu_bar_metric_subtitle_moonshot" = "تعادل Moonshot / Kimi API را در نوار منو نشان می دهد.";
 "menu_bar_metric_subtitle_mistral" = "هزینه های Mistral API ماه جاری را در نوار منو نشان می دهد.";

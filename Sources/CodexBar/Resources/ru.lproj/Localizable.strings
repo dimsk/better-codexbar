@@ -590,6 +590,8 @@
 "unsafe_managed_home" = "CodexBar отказался изменять неожиданный управляемый каталог: %@";
 "menu_bar_metric_title" = "Метрика строки меню";
 "menu_bar_metric_subtitle" = "Выберите, какое окно управляет процентами строки меню.";
+"multi_account_menu_bar_title" = "Показать все аккаунты";
+"multi_account_menu_bar_subtitle" = "Показывает в строке меню процент для каждого аккаунта.";
 "menu_bar_metric_subtitle_deepseek" = "Показывает баланс DeepSeek в строке меню.";
 "menu_bar_metric_subtitle_moonshot" = "Показывает баланс Moonshot / Kimi API в строке меню.";
 "menu_bar_metric_subtitle_mistral" = "В строке меню показаны расходы Mistral API за текущий месяц.";

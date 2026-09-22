@@ -581,6 +581,8 @@
 "unsafe_managed_home" = "CodexBar가 예기치 않은 관리 홈 경로 수정을 거부했습니다: %@";
 "menu_bar_metric_title" = "메뉴 막대 지표";
 "menu_bar_metric_subtitle" = "메뉴 막대 백분율을 결정할 창을 선택하세요.";
+"multi_account_menu_bar_title" = "모든 계정 표시";
+"multi_account_menu_bar_subtitle" = "메뉴 막대에 계정별 백분율을 표시합니다.";
 "menu_bar_metric_subtitle_deepseek" = "메뉴 막대에 DeepSeek 잔액을 표시합니다.";
 "menu_bar_metric_subtitle_moonshot" = "메뉴 막대에 Moonshot / Kimi API 잔액을 표시합니다.";
 "menu_bar_metric_subtitle_mistral" = "메뉴 막대에 이번 달 Mistral API 지출을 표시합니다.";

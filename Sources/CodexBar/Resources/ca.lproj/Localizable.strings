@@ -573,6 +573,8 @@
 "unsafe_managed_home" = "El CodexBar s'ha negat a modificar un camí de directori gestionat inesperat: %@";
 "menu_bar_metric_title" = "Mètrica de la barra de menús";
 "menu_bar_metric_subtitle" = "Trieu quina finestra determina el percentatge de la barra de menús.";
+"multi_account_menu_bar_title" = "Mostra tots els comptes";
+"multi_account_menu_bar_subtitle" = "Mostra un percentatge per compte a la barra de menús.";
 "menu_bar_metric_subtitle_deepseek" = "Mostra el saldo de DeepSeek a la barra de menús.";
 "menu_bar_metric_subtitle_moonshot" = "Mostra el saldo de l'API de Moonshot / Kimi a la barra de menús.";
 "menu_bar_metric_subtitle_mistral" = "Trieu entre la despesa de l'API de Mistral i l'ús del Monthly Plan per a la barra de menús.";

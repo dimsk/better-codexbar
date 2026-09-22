@@ -95,6 +95,7 @@ struct PreferencesPaneSmokeTests {
     func `menu bar and menu options cover persisted settings`() {
         #expect(MenuBarSettingsMenuOptions.displayModes == MenuBarDisplayMode.allCases)
         #expect(MenuBarSettingsMenuOptions.iconStyles == MenuBarIconStyle.allCases)
+        #expect(MenuBarSettingsMenuOptions.multiAccountMenuBarWindows == MultiAccountMenuBarWindow.allCases)
         #expect(MenuBarSettingsMenuOptions.switcherRows == SwitcherRowsOption.allCases)
         #expect(MenuSettingsMenuOptions.weeklyProgressWorkDays == [nil, 4, 5, 7])
         #expect(MenuSettingsMenuOptions.weeklyProgressWorkDaysLabel(nil) == L("Automatic"))
@@ -107,7 +108,10 @@ struct PreferencesPaneSmokeTests {
 
         let suite = "PreferencesPaneSmokeTests-display-menu-persistence"
         let settings = Self.makeSettingsStore(suite: suite)
+        #expect(!settings.multiAccountMenuBarEnabled)
         settings.menuBarDisplayMode = .resetTime
+        settings.multiAccountMenuBarEnabled = true
+        settings.multiAccountMenuBarWindow = .weekly
         settings.weeklyProgressWorkDays = 7
         settings.workdayTickAppearance = .highContrast
         settings.multiAccountMenuLayout = .stacked
@@ -115,10 +119,26 @@ struct PreferencesPaneSmokeTests {
 
         let reloaded = Self.makeSettingsStore(suite: suite, reset: false)
         #expect(reloaded.menuBarDisplayMode == .resetTime)
+        #expect(reloaded.multiAccountMenuBarEnabled)
+        #expect(reloaded.multiAccountMenuBarWindow == .weekly)
         #expect(reloaded.weeklyProgressWorkDays == 7)
         #expect(reloaded.workdayTickAppearance == .highContrast)
         #expect(reloaded.multiAccountMenuLayout == .stacked)
         #expect(reloaded.costSummaryDisplayStyle == .costSubmenu)
+    }
+
+    @Test
+    func `menu bar account display reads the earlier stored choice`() throws {
+        let suite = "PreferencesPaneSmokeTests-multi-account-menu-bar-migration"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        defaults.removePersistentDomain(forName: suite)
+        defaults.set(false, forKey: "codexMultiAccountMenuBarEnabled")
+        defaults.set("fiveHour", forKey: "codexMultiAccountMenuBarWindow")
+
+        let settings = Self.makeSettingsStore(suite: suite, reset: false)
+
+        #expect(!settings.multiAccountMenuBarEnabled)
+        #expect(settings.multiAccountMenuBarWindow == .session)
     }
 
     @Test

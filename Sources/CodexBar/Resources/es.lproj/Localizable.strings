@@ -581,6 +581,8 @@
 "unsafe_managed_home" = "CodexBar se negó a modificar una ruta de directorio gestionado inesperada: %@";
 "menu_bar_metric_title" = "Métrica de la barra de menús";
 "menu_bar_metric_subtitle" = "Elige qué ventana determina el porcentaje de la barra de menús.";
+"multi_account_menu_bar_title" = "Mostrar todas las cuentas";
+"multi_account_menu_bar_subtitle" = "Muestra un porcentaje por cuenta en la barra de menús.";
 "menu_bar_metric_subtitle_deepseek" = "Muestra el saldo de DeepSeek en la barra de menús.";
 "menu_bar_metric_subtitle_moonshot" = "Muestra el saldo de la API de Moonshot / Kimi en la barra de menús.";
 "menu_bar_metric_subtitle_mistral" = "Muestra el gasto de la API de Mistral del mes actual en la barra de menús.";

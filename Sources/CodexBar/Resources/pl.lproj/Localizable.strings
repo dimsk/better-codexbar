@@ -597,6 +597,8 @@
 "unsafe_managed_home" = "CodexBar odmówił zmiany nieoczekiwanej ścieżki zarządzanego katalogu domowego: %@";
 "menu_bar_metric_title" = "Metryka paska menu";
 "menu_bar_metric_subtitle" = "Wybierz metrykę pokazywaną obok ikony na pasku menu.";
+"multi_account_menu_bar_title" = "Pokaż wszystkie konta";
+"multi_account_menu_bar_subtitle" = "Pokazuje jeden procent dla każdego konta na pasku menu.";
 "menu_bar_metric_subtitle_deepseek" = "Pokazuje saldo DeepSeek na pasku menu.";
 "menu_bar_metric_subtitle_moonshot" = "Pokazuje saldo API Moonshot / Kimi na pasku menu.";
 "menu_bar_metric_subtitle_mistral" = "Pokazuje wydatki Mistral API z bieżącego miesiąca na pasku menu.";

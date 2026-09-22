@@ -585,6 +585,8 @@
 "unsafe_managed_home" = "CodexBar từ chối sửa đổi đường dẫn chính được quản lý không mong muốn: %@";
 "menu_bar_metric_title" = "thanh menu chỉ số";
 "menu_bar_metric_subtitle" = "Chọn cửa sổ nào thúc đẩy phần trăm thanh menu.";
+"multi_account_menu_bar_title" = "Hiển thị tất cả tài khoản";
+"multi_account_menu_bar_subtitle" = "Hiển thị một phần trăm cho mỗi tài khoản trên thanh menu.";
 "menu_bar_metric_subtitle_deepseek" = "Hiển thị số dư DeepSeek trong thanh menu .";
 "menu_bar_metric_subtitle_moonshot" = "Hiển thị số dư Moonshot / Kimi API trong thanh menu .";
 "menu_bar_metric_subtitle_mistral" = "Hiển thị mức chi tiêu API của Mistral trong tháng hiện tại trong thanh menu .";

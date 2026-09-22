@@ -284,6 +284,16 @@ extension StatusItemController {
         let snapshot = self.store.menuBarSnapshot(for: primaryProvider.instanceID)
         let warningFlash = self.quotaWarningFlashActive(provider: primaryProvider)
 
+        if let wasCached = self.applyMultiAccountStatusImageIfNeeded(
+            provider: primaryProvider,
+            warningFlash: warningFlash,
+            statusItem: self.statusItem,
+            button: button,
+            merged: true)
+        {
+            return wasCached
+        }
+
         if let rows = self.stackedMergeIconProvidersIfActive(),
            let stackedResult = self.applyStoredStackedMenuBarLayoutIfNeeded(top: rows.top, bottom: rows.bottom)
         {
@@ -516,6 +526,17 @@ extension StatusItemController {
         let style: IconStyle = self.store.style(for: provider)
         let warningFlash = self.quotaWarningFlashActive(provider: provider)
 
+        if let statusItem = self.statusItems[provider.instanceID],
+           let wasCached = self.applyMultiAccountStatusImageIfNeeded(
+               provider: provider,
+               warningFlash: warningFlash,
+               statusItem: statusItem,
+               button: button,
+               merged: false)
+        {
+            return wasCached
+        }
+
         if showBrandPercent,
            let statusItem = self.statusItems[provider.instanceID],
            let wasCached = self.applyStoredMenuBarLayoutIfNeeded(
@@ -665,6 +686,38 @@ extension StatusItemController {
         }
         self.noteIconPerfRender(skipped: false)
         return false
+    }
+
+    private func applyMultiAccountStatusImageIfNeeded(
+        provider: UsageProvider,
+        warningFlash: Bool,
+        statusItem: NSStatusItem,
+        button: NSStatusBarButton,
+        merged: Bool)
+        -> Bool?
+    {
+        guard let items = self.store.multiAccountMenuBarItems(for: provider),
+              let image = MultiAccountStatusImageRenderer.image(items: items)
+        else {
+            return nil
+        }
+
+        statusItem.length = NSStatusItem.variableLength
+        let displaySignature = items.map { "\($0.indicator):\($0.percentage)" }.joined(separator: "|")
+        let displayedImage = warningFlash ? Self.quotaWarningFlashImage(base: image) : image
+        let signature = [
+            "mode=multiAccount",
+            "items=\(displaySignature)",
+            "warningFlash=\(warningFlash ? "1" : "0")",
+            "highContrast=\(self.shouldUseHighContrastStatusItemContent ? "1" : "0")",
+        ].joined(separator: "|")
+        let wasCached = merged
+            ? self.shouldSkipMergedIconRender(signature)
+            : self.shouldSkipProviderIconRender(provider: provider, signature: signature)
+        self.setButtonContent(image: displayedImage, title: nil, for: button)
+        button.setAccessibilityValue(displaySignature)
+        self.noteIconPerfRender(skipped: wasCached)
+        return wasCached
     }
 
     static func iconSignatureValue(_ value: Double?) -> String {

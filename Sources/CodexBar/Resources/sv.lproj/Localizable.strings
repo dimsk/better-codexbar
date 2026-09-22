@@ -588,6 +588,8 @@
 "unsafe_managed_home" = "CodexBar vägrade ändra en oväntad hanterad hem-sökväg: %@";
 "menu_bar_metric_title" = "Menyradsmått";
 "menu_bar_metric_subtitle" = "Välj vilket fönster som styr procenttalet i menyraden.";
+"multi_account_menu_bar_title" = "Visa alla konton";
+"multi_account_menu_bar_subtitle" = "Visar en procent per konto i menyraden.";
 "menu_bar_metric_subtitle_deepseek" = "Visar DeepSeek-saldot i menyraden.";
 "menu_bar_metric_subtitle_moonshot" = "Visar saldot för Moonshot/Kimi API i menyraden.";
 "menu_bar_metric_subtitle_mistral" = "Visar den aktuella månadens Mistral API-utgift i menyraden.";

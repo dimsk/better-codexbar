@@ -595,6 +595,8 @@
 "unsafe_managed_home" = "CodexBar beklenmeyen bir yönetilen ev yolunu değiştirmeyi reddetti: %@";
 "menu_bar_metric_title" = "Menü çubuğu metriği";
 "menu_bar_metric_subtitle" = "Menü çubuğu yüzdesini hangi pencerenin belirleyeceğini seçin.";
+"multi_account_menu_bar_title" = "Tüm hesapları göster";
+"multi_account_menu_bar_subtitle" = "Menü çubuğunda her hesap için bir yüzde gösterir.";
 "menu_bar_metric_subtitle_deepseek" = "Menü çubuğunda DeepSeek bakiyesini gösterir.";
 "menu_bar_metric_subtitle_moonshot" = "Menü çubuğunda Moonshot / Kimi API bakiyesini gösterir.";
 "menu_bar_metric_subtitle_mistral" = "Menü çubuğunda Mistral API'sinin geçerli ay harcamasını gösterir.";

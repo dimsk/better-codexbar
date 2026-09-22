@@ -176,10 +176,9 @@ extension UsageStore {
 
     func refreshCodexVisibleAccountsForMenu(generation: UInt64? = nil) async {
         let projection = self.freshCodexVisibleAccountProjectionForAccountRefresh()
-        let accounts = self.limitedCodexVisibleAccounts(
-            projection.visibleAccounts,
-            snapshots: self.codexAccountSnapshots,
-            activeVisibleAccountID: projection.activeVisibleAccountID)
+        // The menu bar gives every configured Codex account a stable slot, so refresh the full
+        // projection instead of applying the menu-card display cap.
+        let accounts = projection.visibleAccounts
         guard accounts.count > 1 else {
             self.codexAccountSnapshots = []
             return
@@ -472,13 +471,26 @@ extension UsageStore {
         account: CodexVisibleAccount,
         allowProviderAccountAuthFingerprintMismatch: Bool = true) -> Bool
     {
-        guard prior.selectionSource == account.selectionSource else { return false }
-
         guard let priorEmail = CodexIdentityResolver.normalizeEmail(prior.email),
               let accountEmail = CodexIdentityResolver.normalizeEmail(account.email),
               priorEmail == accountEmail
         else {
             return false
+        }
+
+        // Unique-email rows keep the email as their visible-account id when a managed profile is
+        // promoted to the live system account (or demoted back). Dropping that snapshot leaves a
+        // permanent "–" in the multi-account menu bar even though usage was fetched.
+        if prior.selectionSource != account.selectionSource {
+            let priorWorkspaceID = self.normalizedCodexVisibleAccountText(prior.workspaceAccountID)
+                .map(CodexOpenAIWorkspaceIdentity.normalizeWorkspaceAccountID)
+            let accountWorkspaceID = self.normalizedCodexVisibleAccountText(account.workspaceAccountID)
+                .map(CodexOpenAIWorkspaceIdentity.normalizeWorkspaceAccountID)
+            if priorWorkspaceID != nil || accountWorkspaceID != nil {
+                guard priorWorkspaceID == accountWorkspaceID else { return false }
+            } else {
+                guard prior.id == account.id else { return false }
+            }
         }
 
         let priorWorkspaceID = self.normalizedCodexVisibleAccountText(prior.workspaceAccountID)
@@ -1131,7 +1143,7 @@ extension UsageStore {
             }
         }
 
-        guard prior.id != prior.email, account.id != account.email else { return false }
+        // Same visible row after live ↔ managed promotion: unique-email ids are the email itself.
         return prior.id == account.id
     }
 

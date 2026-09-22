@@ -589,6 +589,8 @@
 "unsafe_managed_home" = "CodexBar weigerde een onverwacht beheerd thuispad te wijzigen: %@";
 "menu_bar_metric_title" = "Menubalkstatistiek";
 "menu_bar_metric_subtitle" = "Kies welk venster het menubalkpercentage aanstuurt.";
+"multi_account_menu_bar_title" = "Alle accounts tonen";
+"multi_account_menu_bar_subtitle" = "Toont één percentage per account in de menubalk.";
 "menu_bar_metric_subtitle_deepseek" = "Toont het DeepSeek-saldo in de menubalk.";
 "menu_bar_metric_subtitle_moonshot" = "Toont het Moonshot / Kimi API-saldo in de menubalk.";
 "menu_bar_metric_subtitle_mistral" = "Toont de Mistral API-uitgaven van de huidige maand in de menubalk.";

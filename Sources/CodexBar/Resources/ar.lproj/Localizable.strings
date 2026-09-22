@@ -595,6 +595,8 @@
 "unsafe_managed_home" = "رفض CodexBar تعديل مسار منزلي مدار غير متوقع: %@";
 "menu_bar_metric_title" = "مقياس شريط القائمة";
 "menu_bar_metric_subtitle" = "اختر أي نافذة تحدد نسبة شريط القوائم.";
+"multi_account_menu_bar_title" = "عرض جميع الحسابات";
+"multi_account_menu_bar_subtitle" = "يعرض نسبة مئوية لكل حساب في شريط القائمة.";
 "menu_bar_metric_subtitle_deepseek" = "يظهر توازن DeepSeek في شريط القوائم.";
 "menu_bar_metric_subtitle_moonshot" = "يظهر توازن Moonshot / Kimi API في شريط القوائم.";
 "menu_bar_metric_subtitle_mistral" = "يعرض الإنفاق Mistral API الشهري الحالي في شريط القوائم.";

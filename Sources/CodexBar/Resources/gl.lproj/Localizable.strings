@@ -568,6 +568,8 @@
 "unsafe_managed_home" = "CodexBar rexeitou modificar unha ruta de directorio xestionada inesperada: %@";
 "menu_bar_metric_title" = "Métrica da barra de menús";
 "menu_bar_metric_subtitle" = "Escolle que xanela determina a porcentaxe da barra de menús.";
+"multi_account_menu_bar_title" = "Amosar todas as contas";
+"multi_account_menu_bar_subtitle" = "Amosa unha porcentaxe por conta na barra de menús.";
 "menu_bar_metric_subtitle_deepseek" = "Amosa o saldo de DeepSeek na barra de menús.";
 "menu_bar_metric_subtitle_moonshot" = "Amosa o saldo da API de Moonshot / Kimi na barra de menús.";
 "menu_bar_metric_subtitle_mistral" = "Amosa o gasto da API de Mistral do mes actual na barra de menús.";

@@ -597,6 +597,8 @@
 "unsafe_managed_home" = "CodexBar menolak memodifikasi path home terkelola yang tidak terduga: %@";
 "menu_bar_metric_title" = "Metrik menu bar";
 "menu_bar_metric_subtitle" = "Pilih jendela mana yang menggerakkan persentase menu bar.";
+"multi_account_menu_bar_title" = "Tampilkan semua akun";
+"multi_account_menu_bar_subtitle" = "Menampilkan satu persentase per akun di menu bar.";
 "menu_bar_metric_subtitle_deepseek" = "Menampilkan saldo DeepSeek di menu bar.";
 "menu_bar_metric_subtitle_moonshot" = "Menampilkan saldo API Moonshot / Kimi di menu bar.";
 "menu_bar_metric_subtitle_mistral" = "Menampilkan pengeluaran API Mistral bulan ini di menu bar.";

@@ -35,6 +35,8 @@ struct SettingsDefaultsState {
     var menuBarHighContrastOnInactiveDisplays: Bool
     var menuBarDisplayModeRaw: String?
     var menuBarShowsResetTimeWhenExhausted: Bool
+    var multiAccountMenuBarEnabled: Bool
+    var multiAccountMenuBarWindowRaw: String
     var kiroMenuBarDisplayModeRaw: String?
     var historicalTrackingEnabled: Bool
     var multiAccountMenuLayoutRaw: String

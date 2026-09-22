@@ -586,6 +586,8 @@
 "unsafe_managed_home" = "CodexBar は想定外のマネージドホームパスの変更を拒否しました: %@";
 "menu_bar_metric_title" = "メニューバーの指標";
 "menu_bar_metric_subtitle" = "メニューバーのパーセント表示に使用するウインドウを選択します。";
+"multi_account_menu_bar_title" = "すべてのアカウントを表示";
+"multi_account_menu_bar_subtitle" = "メニューバーにアカウントごとの割合を表示します。";
 "menu_bar_metric_subtitle_deepseek" = "DeepSeek の残高をメニューバーに表示します。";
 "menu_bar_metric_subtitle_moonshot" = "Moonshot / Kimi API の残高をメニューバーに表示します。";
 "menu_bar_metric_subtitle_mistral" = "今月の Mistral API 支出をメニューバーに表示します。";

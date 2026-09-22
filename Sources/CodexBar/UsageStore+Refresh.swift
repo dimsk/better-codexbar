@@ -969,12 +969,14 @@ extension UsageStore {
             accountEmail: account.email,
             accountOrganization: identity?.accountOrganization,
             loginMethod: identity?.loginMethod ?? account.workspaceLabel))
-        let currentSnapshots = [CodexAccountUsageSnapshot(
+        let updated = CodexAccountUsageSnapshot(
             account: account,
             snapshot: relabeled,
             error: nil,
             sourceLabel: sourceLabel,
-            credits: self.credits)]
+            credits: self.credits,
+            weeklyResetCandidate: self.codexAccountSnapshots.first { $0.id == account.id }?.weeklyResetCandidate)
+        let currentSnapshots = Self.upsertingCodexAccountSnapshot(self.codexAccountSnapshots, updated)
         self.codexAccountSnapshots = currentSnapshots
         self.codexAccountUsageSnapshotStore?.store(currentSnapshots)
     }

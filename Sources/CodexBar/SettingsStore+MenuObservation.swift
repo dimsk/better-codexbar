@@ -35,6 +35,8 @@ extension SettingsStore {
         _ = self.menuBarShowsHighestUsage
         _ = self.menuBarDisplayMode
         _ = self.menuBarShowsResetTimeWhenExhausted
+        _ = self.multiAccountMenuBarEnabled
+        _ = self.multiAccountMenuBarWindow
         _ = self.kiroMenuBarDisplayMode
         _ = self.historicalTrackingEnabled
         _ = self.multiAccountMenuLayout

@@ -40,6 +40,23 @@ struct MenuBarPane: View {
                         Text(style.label)
                     })
 
+                Toggle(isOn: self.$settings.multiAccountMenuBarEnabled) {
+                    SettingsRowLabel(
+                        L("multi_account_menu_bar_title"),
+                        subtitle: L("multi_account_menu_bar_subtitle"))
+                }
+
+                SettingsMenuPicker(
+                    selection: self.$settings.multiAccountMenuBarWindow,
+                    options: MenuBarSettingsMenuOptions.multiAccountMenuBarWindows,
+                    label: {
+                        Text(L("menu_bar_metric_title"))
+                    },
+                    optionLabel: { window in
+                        Text(window.label)
+                    })
+                    .disabled(!self.settings.multiAccountMenuBarEnabled)
+
                 Toggle(isOn: self.$settings.menuBarHighContrastOnInactiveDisplays) {
                     SettingsRowLabel(
                         L("menu_bar_inactive_display_contrast_title"),

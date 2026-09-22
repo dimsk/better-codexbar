@@ -172,8 +172,8 @@ struct FileCodexAccountUsageSnapshotStore: CodexAccountUsageSnapshotStoring, @un
 
         let accountsByID = Dictionary(uniqueKeysWithValues: accounts.map { ($0.id, $0) })
         return payload.records.compactMap { record in
-            guard let account = accountsByID[record.id] else { return nil }
-            guard record.accountIdentity?.matches(account) == true else { return nil }
+            guard let account = Self.account(matching: record, accounts: accounts, accountsByID: accountsByID)
+            else { return nil }
             return CodexAccountUsageSnapshot(
                 account: account,
                 snapshot: Self.relabelSnapshot(record.snapshot, for: account),
@@ -182,6 +182,19 @@ struct FileCodexAccountUsageSnapshotStore: CodexAccountUsageSnapshotStoring, @un
                 credits: record.credits,
                 weeklyResetCandidate: Self.relabelCandidate(record.weeklyResetCandidate, for: account))
         }
+    }
+
+    private static func account(
+        matching record: Record,
+        accounts: [CodexVisibleAccount],
+        accountsByID: [String: CodexVisibleAccount]) -> CodexVisibleAccount?
+    {
+        if let exact = accountsByID[record.id], record.accountIdentity?.matches(exact) == true {
+            return exact
+        }
+        let matches = accounts.filter { record.accountIdentity?.matches($0) == true }
+        guard matches.count == 1 else { return nil }
+        return matches[0]
     }
 
     func store(_ snapshots: [CodexAccountUsageSnapshot]) {

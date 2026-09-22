@@ -38,6 +38,19 @@ extension UsageStore {
             weeklyResetCandidate: candidate)]
     }
 
+    nonisolated static func upsertingCodexAccountSnapshot(
+        _ snapshots: [CodexAccountUsageSnapshot],
+        _ snapshot: CodexAccountUsageSnapshot) -> [CodexAccountUsageSnapshot]
+    {
+        var snapshots = snapshots
+        if let index = snapshots.firstIndex(where: { $0.id == snapshot.id }) {
+            snapshots[index] = snapshot
+        } else {
+            snapshots.append(snapshot)
+        }
+        return snapshots
+    }
+
     static func codexAccountSnapshots(
         _ snapshots: [CodexAccountUsageSnapshot],
         reconciledWith projection: CodexVisibleAccountProjection) -> [CodexAccountUsageSnapshot]

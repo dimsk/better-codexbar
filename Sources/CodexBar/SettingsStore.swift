@@ -530,6 +530,12 @@ extension SettingsStore {
             ?? MenuBarDisplayMode.percent.rawValue
         let menuBarShowsResetTimeWhenExhausted = userDefaults.object(
             forKey: "menuBarShowsResetTimeWhenExhausted") as? Bool ?? false
+        let multiAccountMenuBarEnabled = userDefaults.object(forKey: "multiAccountMenuBarEnabled") as? Bool
+            ?? userDefaults.object(forKey: "codexMultiAccountMenuBarEnabled") as? Bool
+            ?? false
+        let multiAccountMenuBarWindowRaw = MultiAccountMenuBarWindow.resolved(
+            storedRaw: userDefaults.string(forKey: "multiAccountMenuBarWindow")
+                ?? userDefaults.string(forKey: "codexMultiAccountMenuBarWindow")).rawValue
         let kiroMenuBarDisplayModeRaw = userDefaults.string(forKey: "kiroMenuBarDisplayMode")
             ?? KiroMenuBarDisplayMode.automatic.rawValue
         let historicalTrackingEnabled = userDefaults.object(forKey: "historicalTrackingEnabled") as? Bool ?? false
@@ -687,6 +693,8 @@ extension SettingsStore {
             menuBarHighContrastOnInactiveDisplays: menuBarHighContrastOnInactiveDisplays,
             menuBarDisplayModeRaw: menuBarDisplayModeRaw,
             menuBarShowsResetTimeWhenExhausted: menuBarShowsResetTimeWhenExhausted,
+            multiAccountMenuBarEnabled: multiAccountMenuBarEnabled,
+            multiAccountMenuBarWindowRaw: multiAccountMenuBarWindowRaw,
             kiroMenuBarDisplayModeRaw: kiroMenuBarDisplayModeRaw,
             historicalTrackingEnabled: historicalTrackingEnabled,
             multiAccountMenuLayoutRaw: multiAccountMenuLayoutRaw,
